@@ -28,7 +28,7 @@ app.get('/api/hello', function (req, res) {
 app.get('/api/whoami', (req, res) => {
   console.log(req.get('accept-language'))
   console.log(req.get('user-agent'))
-  res.json({ipaddress: req.ip, language: req.get('accept-language'), software: req.get('user-agent')})
+  res.json({ipaddress: req.socket.remoteAddress, language: req.get('accept-language'), software: req.get('user-agent')})
 })
 
 // listen for requests :)
