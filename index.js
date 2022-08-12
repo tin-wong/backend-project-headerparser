@@ -5,6 +5,7 @@
 require('dotenv').config();
 var express = require('express');
 var app = express();
+const requestIp = require('request-ip');
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC
@@ -25,10 +26,11 @@ app.get('/api/hello', function (req, res) {
 });
 
 // Request Header Parser Microservice
-app.get('/api/whoami', (req, res) => {
+app.get('/api/whoami', (req, res, next) => {
   console.log(req.get('accept-language'))
-  console.log(req.get('user-agent'))
-  res.json({ipaddress: req.socket.remoteAddress, language: req.get('accept-language'), software: req.get('user-agent')})
+  console.log(requestIp.getClientIp(req))
+  res.json({ipaddress: requestIp.getClientIp(req), language: req.get('accept-language'), software: req.get('user-agent')});
+  next();
 })
 
 // listen for requests :)
