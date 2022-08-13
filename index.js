@@ -27,8 +27,7 @@ app.get('/api/hello', function (req, res) {
 
 // Request Header Parser Microservice
 app.get('/api/whoami', (req, res, next) => {
-  console.log(req.get('accept-language'))
-  console.log(requestIp.getClientIp(req))
+  // Use the request-ip module to get client IP
   res.json({ipaddress: requestIp.getClientIp(req), language: req.get('accept-language'), software: req.get('user-agent')});
   next();
 })
